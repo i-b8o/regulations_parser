@@ -2,14 +2,18 @@ js = `
 const terms = ["X","V", "I"];
 let chapter = {};
 // Chapter name
-chapter.name = document.getElementsByTagName("h1")[0].innerText;
+let h1s = document.getElementsByTagName("h1");
+if (h1s.length > 0){
+    chapter.name = h1s[0].innerText;
+} else {
+    chapter.name = "";
+}
 // Chapter num
 if (terms.some(term => chapter.name.includes(term))){
     chapter.num = chapter.name.split(". ")[0];
 } else {
     chapter.num = "";
 }
-
 // Delete header, all indents  and info links
 document.getElementsByTagName("h1")[0].remove();
 // Array.prototype.slice.apply( document.getElementsByClassName("info-link") ).map((el) => el.remove());
@@ -31,11 +35,16 @@ content.childNodes.forEach(function(el){
     if (el.tagName != 'DIV' && el.tagName != 'P'){
             return;
     }
-    if(el.classList && el.classList.contains("document__style")){return};
+    
     if(el.classList && el.classList.contains("document__style")){return};
     if(el.classList && el.classList.contains("no-indent")){return};
     if(el.classList && el.classList.contains("document__format")){return};
     let paragraph = {};
+    if(el.classList && el.classList.contains("align_right")){
+        paragraph.text = el.innerHTML;
+        paragraphs.push(paragraph);
+        return;
+    };
   
     // Paragraph Id
     let pIdTag = el.getElementsByTagName("a")[0];
