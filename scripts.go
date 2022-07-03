@@ -41,6 +41,7 @@ content.childNodes.forEach(function(el){
     if(el.classList && el.classList.contains("document__format")){return};
     let paragraph = {};
     if(el.classList && el.classList.contains("align_right")){
+        paragraph.class = "align_right";
         paragraph.text = el.innerHTML;
         paragraphs.push(paragraph);
         return;
