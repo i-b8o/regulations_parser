@@ -40,8 +40,16 @@ content.childNodes.forEach(function(el){
     if(el.classList && el.classList.contains("no-indent")){return};
     if(el.classList && el.classList.contains("document__format")){return};
     let paragraph = {};
+    
+    // Set class name
     if(el.classList && el.classList.contains("align_right")){
         paragraph.class = "align_right";
+        paragraph.text = el.innerHTML;
+        paragraphs.push(paragraph);
+        return;
+    };
+    if(el.classList && el.classList.contains("align_center")){
+        paragraph.class = "align_center";
         paragraph.text = el.innerHTML;
         paragraphs.push(paragraph);
         return;
