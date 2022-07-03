@@ -1,16 +1,22 @@
 js = `
+const terms = ["X","V", "I"];
+let chapter = {};
 // Chapter name
-// let chapterName = document.getElementsByTagName("h1")[0].innerText;
+chapter.name = document.getElementsByTagName("h1")[0].innerText;
 // Chapter num
-// let chapterNum = chapterName.split(". ")[0];
+if (terms.some(term => chapter.name.includes(term))){
+    chapter.num = chapter.name.split(". ")[0];
+} else {
+    chapter.num = "";
+}
+
 // Delete header, all indents  and info links
-// document.getElementsByTagName("h1")[0].remove();
+document.getElementsByTagName("h1")[0].remove();
 // Array.prototype.slice.apply( document.getElementsByClassName("info-link") ).map((el) => el.remove());
 // Array.prototype.slice.apply( document.getElementsByClassName("no-indent") ).map((el) => el.remove());
 let paragraphs = [];
 let content = document.getElementsByClassName("document-page__content")[0];
 content.childNodes.forEach(function(el){
-    console.log(el);
     // If table
     if (el.classList && el.classList.contains("doc-table")){
         let paragraph = {};
@@ -26,7 +32,7 @@ content.childNodes.forEach(function(el){
     }
     if(el.classList && el.classList.contains("document__style")){return};
     if(el.classList && el.classList.contains("no-indent")){return};
-    
+    if(el.classList && el.classList.contains("document__format")){return};
     let paragraph = {};
   
     // Paragraph Id
@@ -47,5 +53,5 @@ content.childNodes.forEach(function(el){
     
     paragraphs.push(paragraph);
 });
-
+chapter.paragraphs = paragraphs;
 `
