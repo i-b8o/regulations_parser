@@ -27,9 +27,11 @@ content.childNodes.forEach(function(el){
     };
     
     // Drop useless elements
+    if(el.textContent.length == 0){return}
     if (el.tagName != 'DIV' && el.tagName != 'P'){
             return;
     }
+    if(el.classList && el.classList.contains("document__style")){return};
     if(el.classList && el.classList.contains("document__style")){return};
     if(el.classList && el.classList.contains("no-indent")){return};
     if(el.classList && el.classList.contains("document__format")){return};
