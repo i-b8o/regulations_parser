@@ -43,12 +43,34 @@ content.childNodes.forEach(function(el){
     
     // Set class name
     if(el.classList && el.classList.contains("align_right")){
+         // Paragraph Id
+        let pIdTags = el.getElementsByTagName("a");
+        if (pIdTags && (pIdTags.length > 0)){
+            let pId = pIdTags[0].id.split("dst")[1];
+            paragraph.id = parseInt(pId);
+            pIdTags[0].remove();           
+        }
+        
+        let divTag = el.getElementsByClassName("info-link")[0];
+        if (divTag){divTag.remove()}
+
         paragraph.class = "align_right";
         paragraph.text = el.innerHTML;
         paragraphs.push(paragraph);
         return;
     };
     if(el.classList && el.classList.contains("align_center")){
+        // Paragraph Id
+        let pIdTags = el.getElementsByTagName("a");
+        if (pIdTags && (pIdTags.length > 0)){
+            let pId = pIdTags[0].id.split("dst")[1];
+            paragraph.id = parseInt(pId);
+            pIdTags[0].remove();           
+        }
+        
+        let divTag = el.getElementsByClassName("info-link")[0];
+        if (divTag){divTag.remove()}
+        
         paragraph.class = "align_center";
         paragraph.text = el.innerHTML;
         paragraphs.push(paragraph);
