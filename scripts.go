@@ -1,23 +1,28 @@
-js = `
+jsMain = `
+    let regulation = {};
+    regulation.regulation_name = document.getElementsByTagName('h1')[0].innerText;
+    JSON.stringify(regulation);
+`
+
+jsChapter = `
 const terms = ["X","V", "I"];
 let chapter = {};
 // Chapter name
 let h1s = document.getElementsByTagName("h1");
 if (h1s.length > 0){
-    chapter.name = h1s[0].innerText;
+    chapter.chapter_name = h1s[0].innerText;
 } else {
-    chapter.name = "";
+    chapter.chapter_name = "";
 }
 // Chapter num
-if (terms.some(term => chapter.name.includes(term))){
-    chapter.num = chapter.name.split(". ")[0];
+if (terms.some(term => chapter.chapter_name.includes(term))){
+    chapter.chapter_num = chapter.chapter_name.split(". ")[0];
 } else {
-    chapter.num = "";
+    chapter.chapter_num = "";
 }
 // Delete header, all indents  and info links
 document.getElementsByTagName("h1")[0].remove();
-// Array.prototype.slice.apply( document.getElementsByClassName("info-link") ).map((el) => el.remove());
-// Array.prototype.slice.apply( document.getElementsByClassName("no-indent") ).map((el) => el.remove());
+
 let paragraphs = [];
 let content = document.getElementsByClassName("document-page__content")[0];
 content.childNodes.forEach(function(el){
@@ -25,7 +30,7 @@ content.childNodes.forEach(function(el){
     if (el.classList && el.classList.contains("doc-table")){
         let paragraph = {};
         el.getElementsByTagName("table")[0].setAttribute('style', '');
-        paragraph.text = el.innerHTML;
+        paragraph.paragraph_text = el.innerHTML;
         paragraphs.push(paragraph);
         return;
     };
@@ -47,15 +52,15 @@ content.childNodes.forEach(function(el){
         let pIdTags = el.getElementsByTagName("a");
         if (pIdTags && (pIdTags.length > 0)){
             let pId = pIdTags[0].id.split("dst")[1];
-            paragraph.id = parseInt(pId);
+            paragraph.paragraph_id = parseInt(pId);
             pIdTags[0].remove();           
         }
         
         let divTag = el.getElementsByClassName("info-link")[0];
         if (divTag){divTag.remove()}
 
-        paragraph.class = "align_right";
-        paragraph.text = el.innerHTML;
+        paragraph.paragraph_class = "align_right";
+        paragraph.paragraph_text = el.innerHTML;
         paragraphs.push(paragraph);
         return;
     };
@@ -64,15 +69,15 @@ content.childNodes.forEach(function(el){
         let pIdTags = el.getElementsByTagName("a");
         if (pIdTags && (pIdTags.length > 0)){
             let pId = pIdTags[0].id.split("dst")[1];
-            paragraph.id = parseInt(pId);
+            paragraph.paragraph_id = parseInt(pId);
             pIdTags[0].remove();           
         }
         
         let divTag = el.getElementsByClassName("info-link")[0];
         if (divTag){divTag.remove()}
         
-        paragraph.class = "align_center";
-        paragraph.text = el.innerHTML;
+        paragraph.paragraph_class = "align_center";
+        paragraph.paragraph_text = el.innerHTML;
         paragraphs.push(paragraph);
         return;
     };
@@ -81,7 +86,7 @@ content.childNodes.forEach(function(el){
     let pIdTag = el.getElementsByTagName("a")[0];
     
     let pId = pIdTag.id.split("dst")[1];
-    paragraph.id = parseInt(pId);
+    paragraph.paragraph_id = parseInt(pId);
     pIdTag.remove();
     let divTag = el.getElementsByClassName("info-link")[0];
     if (divTag){divTag.remove()}
@@ -91,9 +96,10 @@ content.childNodes.forEach(function(el){
     if (links.length > 0){
         links.forEach((el) => el.href = el.href.split("#dst")[1]);
     }
-    paragraph.text = el.innerHTML;
+    paragraph.paragraph_text = el.innerHTML;
     
     paragraphs.push(paragraph);
 });
 chapter.paragraphs = paragraphs;
+JSON.stringify(chapter).replace(/\\"/g, "\'");
 `
