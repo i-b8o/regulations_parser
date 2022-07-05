@@ -1,4 +1,4 @@
-jsMain = `
+jsRegulation = `
     let regulation = {};
     regulation.regulation_name = document.getElementsByTagName('h1')[0].innerText;
     JSON.stringify(regulation);
