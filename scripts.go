@@ -9,20 +9,21 @@ const terms = ["X","V", "I"];
 let chapter = {};
 // Chapter name
 let h1s = document.getElementsByTagName("h1");
-if (h1s.length > 0){
-    chapter.chapter_name = h1s[0].innerText;
-} else {
-    chapter.chapter_name = "";
-}
+let h1 = h1s.length > 0 ? h1s[0].innerText : "";
+
 // Chapter num
-if (terms.some(term => chapter.chapter_name.includes(term))){
-    chapter.chapter_num = chapter.chapter_name.split(". ")[0];
+if (terms.some(term => h1.includes(term))){
+    let h1_splited = h1.split(". ");
+    chapter.chapter_num = h1_splited[0];
+    chapter.chapter_name = h1_splited[1];
 } else {
     chapter.chapter_num = "";
+    chapter.chapter_name = h1;
 }
 // Delete header, all indents  and info links
-document.getElementsByTagName("h1")[0].remove();
-
+h1s[0].remove();
+`
+jsParagraphs = `
 let paragraphs = [];
 let content = document.getElementsByClassName("document-page__content")[0];
 content.childNodes.forEach(function(el){
