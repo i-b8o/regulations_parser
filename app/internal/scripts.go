@@ -1,12 +1,42 @@
 package main
 
-var jsRegulation = `
+func jsRegulation(abbreviation string) string {
+	return `
 	let regulation = {};
 	regulation.regulation_name = document.getElementsByTagName('h1')[0].innerText;
+	regulation.abbreviation = "` + abbreviation + `"
 	JSON.stringify(regulation);
  `
+}
 
-func jsChapter(chapterID string) string {
+func jsChapter(regulationID string) string {
+	return `
+	const terms = ["X","V", "I"];
+	let chapter = {};
+	chapter.regulation_id = ` + regulationID + `;
+	chapter.chapter_name = "";
+	chapter.chapter_num = "";
+	// Chapter name
+	let h1s = document.getElementsByTagName("h1");
+	let h1 = h1s.length > 0 ? h1s[0].innerText : "";
+	
+	// Chapter num
+	if (terms.some(term => h1.includes(term))){
+		let h1_splited = h1.split(". ");
+		chapter.chapter_num = h1_splited[0];
+		chapter.chapter_name = h1_splited[1];
+	} else {
+		chapter.chapter_num = "";
+		chapter.chapter_name = h1;
+	}
+	// Delete header, all indents  and info links
+	h1s[0].remove();
+	JSON.stringify(chapter);
+
+	`
+}
+
+func jsParagraphs(chapterID string) string {
 	return `
 	let chapter_id = ` + chapterID + `;
 	let chapter = {};
@@ -50,6 +80,7 @@ func jsChapter(chapterID string) string {
 				}
 				str += e.innerText;
 			});
+			if (str.length == 0){return;}
 			paragraph.paragraph_text = str;
 			paragraphs.push(paragraph);
 			i++;
@@ -74,6 +105,7 @@ func jsChapter(chapterID string) string {
 			if (divTag){divTag.remove()}
 			console.log(el)
 			paragraph.paragraph_class = "align_right";
+            if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
 			paragraphs.push(paragraph);
 			i++;
@@ -96,6 +128,7 @@ func jsChapter(chapterID string) string {
 			if (divTag){divTag.remove()}
 	
 			paragraph.paragraph_class = "align_center";
+            if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
 			paragraphs.push(paragraph);
 			i++;
@@ -117,6 +150,7 @@ func jsChapter(chapterID string) string {
 			if (divTag){divTag.remove()}
 		
 			paragraph.paragraph_class = "align_left";
+            if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
 			paragraphs.push(paragraph);
 			i++;
@@ -137,6 +171,7 @@ func jsChapter(chapterID string) string {
 		if (links.length > 0){
 			links.forEach((el) => el.href = el.href.split("#dst")[1]);
 		}
+        if (el.innerHTML.length == 0){return;}
 		paragraph.paragraph_text = el.innerHTML;
 		i++;
 		paragraphs.push(paragraph);

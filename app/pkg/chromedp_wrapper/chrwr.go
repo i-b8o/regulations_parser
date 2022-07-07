@@ -2,6 +2,7 @@ package chromedp_wrapper
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/chromedp/chromedp"
@@ -81,7 +82,7 @@ func getStringsSlice(jsString string, resultSlice *[]string) chromedp.Tasks {
 	}
 }
 
-func GetStringsSlice(ctxt context.Context, jsString string) ([]string, error) {
+func (c *Chrome) GetStringsSlice(ctxt context.Context, jsString string) ([]string, error) {
 	var stringSlice []string
 	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, getStringsSlice(jsString, &stringSlice)))
 	return stringSlice, err
@@ -93,7 +94,7 @@ func getBool(jsBool string, resultBool *bool) chromedp.Tasks {
 	}
 }
 
-func GetBool(ctxt context.Context, jsBool string) (bool, error) {
+func (c *Chrome) GetBool(ctxt context.Context, jsBool string) (bool, error) {
 	var resultBool bool
 	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, getBool(jsBool, &resultBool)))
 	return resultBool, err
@@ -106,11 +107,33 @@ func click(selector string) chromedp.Tasks {
 	}
 }
 
-func Click(ctxt context.Context, selector string) error {
+func (c *Chrome) Click(ctxt context.Context, selector string) error {
 	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, waitVisible(selector)))
 	if err != nil {
 		return err
 	}
 	return chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, click(selector)))
 
+}
+
+func (c *Chrome) WaitLoaded(ctxt context.Context) error {
+	var loaded bool
+	loaded, err := c.GetBool(ctxt, `document.readyState !== 'ready' && document.readyState !== 'complete'`)
+	if err != nil {
+		return err
+	}
+	n := 0
+	for loaded {
+		if n > c.timeOut {
+			return fmt.Errorf("time is over: %d sec", c.timeOut)
+		}
+		fmt.Print(".")
+		time.Sleep(1 * time.Second)
+		loaded, err = c.GetBool(ctxt, `document.readyState !== 'ready' && document.readyState !== 'complete'`)
+		if err != nil {
+			return err
+		}
+		n++
+	}
+	return nil
 }
