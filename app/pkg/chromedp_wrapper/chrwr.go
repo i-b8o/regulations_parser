@@ -2,20 +2,12 @@ package chromedp_wrapper
 
 import (
 	"context"
-	"log"
 	"time"
 
 	"github.com/chromedp/chromedp"
-	"github.com/fatih/color"
-)
-
-var (
-	badColor = color.New(color.FgHiRed, color.Bold)
-	okColor  = color.New(color.FgHiCyan)
 )
 
 type Chrome struct {
-	needLog bool
 	timeOut int
 }
 
@@ -26,7 +18,7 @@ func Init() (context.Context, context.CancelFunc) {
 }
 
 func NewChromeWrapper() *Chrome {
-	return &Chrome{needLog: true, timeOut: 60}
+	return &Chrome{timeOut: 60}
 }
 
 func openURL(url string, message *string) chromedp.Tasks {
@@ -35,23 +27,10 @@ func openURL(url string, message *string) chromedp.Tasks {
 	}
 }
 
-func (c *Chrome) OpenURL(ctxt context.Context, url string) {
-	if c.needLog {
-		c := color.New(color.FgGreen)
-		c.Printf("Opening page url %s - ", url)
-	}
-
+func (c *Chrome) OpenURL(ctxt context.Context, url string) error {
 	var message string
 	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, openURL(url, &message)))
-	if err != nil {
-
-		log.Fatal(err)
-	}
-
-	if c.needLog {
-		d := color.New(color.FgGreen, color.Bold)
-		d.Println("Ok!.")
-	}
+	return err
 }
 
 func RunWithTimeOut(ctx *context.Context, timeout time.Duration, tasks chromedp.Tasks) chromedp.ActionFunc {
@@ -60,4 +39,78 @@ func RunWithTimeOut(ctx *context.Context, timeout time.Duration, tasks chromedp.
 		defer cancel()
 		return tasks.Do(timeoutContext)
 	}
+}
+
+func waitVisible(selector string) chromedp.Tasks {
+	return chromedp.Tasks{
+		chromedp.WaitVisible(selector, chromedp.ByQuery),
+	}
+}
+
+func (c *Chrome) WaitVisible(ctxt context.Context, selector string) error {
+	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, waitVisible(selector)))
+	return err
+}
+
+func waitReady(selector string) chromedp.Tasks {
+	return chromedp.Tasks{
+		chromedp.WaitReady(selector, chromedp.ByQuery),
+	}
+}
+
+func (c *Chrome) WaitReady(ctxt context.Context, selector string) error {
+	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, waitReady(selector)))
+	return err
+}
+
+func getString(jsString string, resultString *string) chromedp.Tasks {
+	return chromedp.Tasks{
+		chromedp.EvaluateAsDevTools(scriptGetString(jsString), resultString),
+	}
+}
+
+func (c *Chrome) GetString(ctxt context.Context, jsString string) (string, error) {
+	var resultString string
+	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, getString(jsString, &resultString)))
+	return resultString, err
+}
+
+func getStringsSlice(jsString string, resultSlice *[]string) chromedp.Tasks {
+	return chromedp.Tasks{
+		chromedp.EvaluateAsDevTools(scriptGetStringsSlice(jsString), resultSlice),
+	}
+}
+
+func GetStringsSlice(ctxt context.Context, jsString string) ([]string, error) {
+	var stringSlice []string
+	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, getStringsSlice(jsString, &stringSlice)))
+	return stringSlice, err
+}
+
+func getBool(jsBool string, resultBool *bool) chromedp.Tasks {
+	return chromedp.Tasks{
+		chromedp.EvaluateAsDevTools(scriptGetBool(jsBool), resultBool),
+	}
+}
+
+func GetBool(ctxt context.Context, jsBool string) (bool, error) {
+	var resultBool bool
+	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, getBool(jsBool, &resultBool)))
+	return resultBool, err
+}
+
+func click(selector string) chromedp.Tasks {
+	return chromedp.Tasks{
+		chromedp.Sleep(1 * time.Second),
+		chromedp.Click(selector, chromedp.ByQuery),
+	}
+}
+
+func Click(ctxt context.Context, selector string) error {
+	err := chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, waitVisible(selector)))
+	if err != nil {
+		return err
+	}
+	return chromedp.Run(ctxt, RunWithTimeOut(&ctxt, 60, click(selector)))
+
 }
