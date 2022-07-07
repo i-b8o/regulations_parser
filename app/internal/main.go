@@ -1,32 +1,37 @@
 package main
 
 import (
-	"bufio"
 	"flag"
-	"os"
 	chrwr "reg_parser/pkg/chromedp_wrapper"
 	"reg_parser/pkg/chromedp_wrapper/logger"
 )
 
 func main() {
-	var rootUrl string
-	flag.StringVar(&rootUrl, "u", "https://www.google.com/", "number of lines to read from the file")
+	logger := logger.NewLogger()
+
+	var rootUrl, abbreviation string
+	flag.StringVar(&rootUrl, "u", "", "start url")
+	flag.StringVar(&abbreviation, "a", "", "abbreviation")
 	flag.Parse()
 
-	// logger
+	if len(rootUrl) == 0 {
+		logger.Error("url is empty")
+		return
+	} else if len(abbreviation) == 0 {
+		logger.Error("abbreviation is empty")
+		return
+	}
 
-	// create context
 	ctx, cancel := chrwr.Init()
 	defer cancel()
-	logger := logger.NewLogger()
+
 	logger.Info("Chrome wrapper initialisation")
 	c := chrwr.NewChromeWrapper()
+
 	logger.Info("openning url %s", rootUrl)
 	err := c.OpenURL(ctx, rootUrl)
 	if err != nil {
 		logger.Error(err)
-		reader := bufio.NewReader(os.Stdin)
-		_, _ = reader.ReadString('\n')
 		return
 	}
 

@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul  7 15:44:47 2022
+# Make data base, printed on Thu Jul  7 16:45:42 2022
 
 # Variables
 
@@ -123,7 +123,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2155
+GIO_LAUNCHED_DESKTOP_FILE_PID = 15621
 # automatic
 %F = $(notdir $%)
 # environment
@@ -181,7 +181,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-51e1d751-cbec-4488-8e81-c80361bbf3c7.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-bc06ed13-313d-45cc-b107-0d55321434ea.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -265,7 +265,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2155
+VSCODE_PID = 15621
 # variable set hash-table stats:
 # Load=127/1024=12%, Rehash=0, Collisions=22/152=14%
 
@@ -329,6 +329,6 @@ Makefile:
 # strcache performance: lookups = 17 / hit rate = 29%
 # hash-table stats:
 # Load=12/8192=0%, Rehash=0, Collisions=1/17=6%
-# Finished Make data base on Thu Jul  7 15:44:47 2022
+# Finished Make data base on Thu Jul  7 16:45:42 2022
 
  
