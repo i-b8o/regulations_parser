@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"flag"
-	"fmt"
 	"os"
 	chrwr "reg_parser/pkg/chromedp_wrapper"
+	"reg_parser/pkg/chromedp_wrapper/logger"
 )
 
 func main() {
@@ -13,29 +13,21 @@ func main() {
 	flag.StringVar(&rootUrl, "u", "https://www.google.com/", "number of lines to read from the file")
 	flag.Parse()
 
-	fmt.Println(rootUrl)
+	// logger
 
 	// create context
 	ctx, cancel := chrwr.Init()
 	defer cancel()
-
+	logger := logger.NewLogger()
+	logger.Info("Chrome wrapper initialisation")
 	c := chrwr.NewChromeWrapper()
-	c.OpenURL(ctx, rootUrl)
+	logger.Info("openning url %s", rootUrl)
+	err := c.OpenURL(ctx, rootUrl)
+	if err != nil {
+		logger.Error(err)
+		reader := bufio.NewReader(os.Stdin)
+		_, _ = reader.ReadString('\n')
+		return
+	}
 
-	// chr := chromedp_wrapper.NewChromeWrapper()
-
-	// err := chr.OpenURL(ctx, rootUrl)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// err = chr.WaitLoaded(ctx)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	reader := bufio.NewReader(os.Stdin)
-	_, _ = reader.ReadString('\n')
-
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
 }
