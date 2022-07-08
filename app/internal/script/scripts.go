@@ -1,6 +1,6 @@
-package main
+package script
 
-func jsRegulation(abbreviation string) string {
+func JSRegulation(abbreviation string) string {
 	return `
 	let regulation = {};
 	regulation.regulation_name = document.getElementsByTagName('h1')[0].innerText;
@@ -9,7 +9,7 @@ func jsRegulation(abbreviation string) string {
  `
 }
 
-func jsChapter(regulationID string) string {
+func JSChapter(regulationID string) string {
 	return `
 	const terms = ["X","V", "I"];
 	let chapter = {};
@@ -36,7 +36,7 @@ func jsChapter(regulationID string) string {
 	`
 }
 
-func jsParagraphs(chapterID string) string {
+func JSParagraphs(chapterID string) string {
 	return `
 	let chapter_id = ` + chapterID + `;
 	let chapter = {};
@@ -44,9 +44,11 @@ func jsParagraphs(chapterID string) string {
 	let content = document.getElementsByClassName("document-page__content")[0];
 	let i = 0;
 	content.childNodes.forEach(function(el){
+        console.log(el);
 		let paragraph = {};
 		paragraph.paragraph_id = 0;
 		paragraph.paragraph_order_num = i;
+        paragraph.isHTML = false;
 		paragraph.paragraph_class = "";
 		paragraph.paragraph_text= "";
 		paragraph.chapter_id = chapter_id;
@@ -56,6 +58,7 @@ func jsParagraphs(chapterID string) string {
 		if (el.classList && el.classList.contains("doc-table")){
 			el.getElementsByTagName("table")[0].setAttribute('style', '');
 			paragraph.paragraph_text = el.innerHTML;
+			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
 			return;
@@ -82,6 +85,7 @@ func jsParagraphs(chapterID string) string {
 			});
 			if (str.length == 0){return;}
 			paragraph.paragraph_text = str;
+			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
 			return;
@@ -107,9 +111,9 @@ func jsParagraphs(chapterID string) string {
 			paragraph.paragraph_class = "align_right";
             if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
+			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
-			console.log(paragraph)
 			return;
 		};
 	
@@ -130,6 +134,7 @@ func jsParagraphs(chapterID string) string {
 			paragraph.paragraph_class = "align_center";
             if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
+			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
 			return;
@@ -152,6 +157,7 @@ func jsParagraphs(chapterID string) string {
 			paragraph.paragraph_class = "align_left";
             if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
+			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
 			return;
@@ -159,10 +165,13 @@ func jsParagraphs(chapterID string) string {
 	
 		
 		// Paragraph Id
-		let pIdTag = el.getElementsByTagName("a")[0];
-		let pId = pIdTag.id.split("dst")[1];
-		paragraph.paragraph_id = parseInt(pId);
-		pIdTag.remove();
+		let pIdTags = el.getElementsByTagName("a");
+        if (pIdTags && (pIdTags.length > 0)){
+				let pId = pIdTags[0].id.split("dst")[1];
+				paragraph.paragraph_id = parseInt(pId);
+				pIdTags[0].remove();
+		}
+		
 		let divTag = el.getElementsByClassName("info-link")[0];
 		if (divTag){divTag.remove()}
 		// Paragraph text
@@ -174,10 +183,11 @@ func jsParagraphs(chapterID string) string {
         if (el.innerHTML.length == 0){return;}
 		paragraph.paragraph_text = el.innerHTML;
 		i++;
+		paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 		paragraphs.push(paragraph);
 	});
 	chapter.paragraphs = paragraphs;
 	JSON.stringify(chapter).replace(/\\"/g, "\'");
-	`
+`
 
 }
