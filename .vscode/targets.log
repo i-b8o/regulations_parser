@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul 12 16:04:18 2022
+# Make data base, printed on Tue Jul 12 16:42:35 2022
 
 # Variables
 
@@ -51,7 +49,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:44372
+JOURNAL_STREAM = 8:84198
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -77,7 +75,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1515
+MANAGERPID = 1700
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -99,7 +97,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1727,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1727
+SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1911,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1911
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -113,7 +111,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = e11749ecad3c47da975faa75c5d0fb10
+INVOCATION_ID = 4b8a18f430e544119b27739ec33c0236
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -123,7 +121,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 8121
+GIO_LAUNCHED_DESKTOP_FILE_PID = 8304
 # automatic
 %F = $(notdir $%)
 # environment
@@ -137,7 +135,7 @@ PWD = /home/kvo/go/src/github.com/i-b8o/regulations_parser
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1690
+SSH_AGENT_PID = 1873
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -181,7 +179,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-32e10e44-9dbf-47b8-b959-978b4fac00b1.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-a8c4fd39-3d18-4e4c-af99-7636e62a8c7e.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -265,7 +263,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 8121
+VSCODE_PID = 8304
 # variable set hash-table stats:
 # Load=127/1024=12%, Rehash=0, Collisions=22/152=14%
 
@@ -280,6 +278,9 @@ VSCODE_PID = 8121
 # 6 files, no impossibilities in 1 directories.
 
 # Implicit Rules
+
+ 
+make: *** No rule to make target 'all'.  Stop.
 
 # No implicit rules.
 
@@ -301,7 +302,6 @@ git:
 	git commit -a -m "$m"
 	git push -u origin master
 
- 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
@@ -329,6 +329,6 @@ Makefile:
 # strcache performance: lookups = 17 / hit rate = 29%
 # hash-table stats:
 # Load=12/8192=0%, Rehash=0, Collisions=1/17=6%
-# Finished Make data base on Tue Jul 12 16:04:18 2022
+# Finished Make data base on Tue Jul 12 16:42:35 2022
 
  
