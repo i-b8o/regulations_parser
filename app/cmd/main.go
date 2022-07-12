@@ -13,6 +13,7 @@ import (
 	"reg_parser/internal/script"
 	chrwr "reg_parser/pkg/chromedp_wrapper"
 	"runtime"
+	"strconv"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -107,10 +108,13 @@ func main() {
 		log.Error(err)
 	}
 	regulationID := response.ID
+	i := 0
 	for btnNextExists {
 		time.Sleep(3 * time.Second)
 		// Chapter
-		s, err = getChapterInfo(ctx, regulationID, c)
+		i++
+		iStr := strconv.FormatInt(int64(i), 10)
+		s, err = getChapterInfo(ctx, regulationID, iStr, c)
 		if err != nil {
 			log.Error(err)
 		}
@@ -201,12 +205,12 @@ func getRegulationName(ctx context.Context, abbreviation string, c *chrwr.Chrome
 	return c.GetString(ctx, script.JSRegulation(abbreviation))
 }
 
-func getChapterInfo(ctx context.Context, regulationID string, c *chrwr.Chrome) (string, error) {
+func getChapterInfo(ctx context.Context, regulationID, chapterOrderNum string, c *chrwr.Chrome) (string, error) {
 	err := c.WaitLoaded(ctx)
 	if err != nil {
 		return "", err
 	}
-	return c.GetString(ctx, script.JSChapter(regulationID))
+	return c.GetString(ctx, script.JSChapter(regulationID, chapterOrderNum))
 }
 
 func getParagraphs(ctx context.Context, chapterID string, c *chrwr.Chrome) (string, error) {

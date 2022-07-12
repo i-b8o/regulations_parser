@@ -9,11 +9,12 @@ func JSRegulation(abbreviation string) string {
  `
 }
 
-func JSChapter(regulationID string) string {
+func JSChapter(regulationID, chapterOrderNum string) string {
 	return `
 	const terms = ["X","V", "I"];
 	let chapter = {};
 	chapter.regulation_id = ` + regulationID + `;
+	chapter.order_num = ` + chapterOrderNum + `;
 	chapter.chapter_name = "";
 	chapter.chapter_num = "";
 	// Chapter name
@@ -29,7 +30,7 @@ func JSChapter(regulationID string) string {
 		chapter.chapter_num = "";
 		chapter.chapter_name = h1;
 	}
-	// Delete header, all indents  and info links
+	chapter.chapter_name = chapter.chapter_name.trim();
 	h1s[0].remove();
 	JSON.stringify(chapter);
 
