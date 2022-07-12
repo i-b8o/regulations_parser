@@ -30,7 +30,7 @@ func JSChapter(regulationID, chapterOrderNum string) string {
 		chapter.chapter_num = "";
 		chapter.chapter_name = h1;
 	}
-	chapter.chapter_name = chapter.chapter_name.trim().replace(/  +/g, ' ').replace((/  |\r\n|\n|\r/gm),"");
+	chapter.chapter_name = chapter.chapter_name.trim().replace((/  |\r\n|\n|\r/gm)," ").replace(/  +/g, ' ');
 	h1s[0].remove();
 	JSON.stringify(chapter);
 
