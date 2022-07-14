@@ -1,11 +1,10 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/kvo/go/src/github.com/i-b8o/regulations_parser'
+make: Entering directory '/home/i-b8o/go/src/github.com/i-b8o/regulations_parser'
  
 git add .
  
 git commit -a -m ""
  
 git push -u origin master
- 
-make: Leaving directory '/home/kvo/go/src/github.com/i-b8o/regulations_parser'
+make: Leaving directory '/home/i-b8o/go/src/github.com/i-b8o/regulations_parser'
  

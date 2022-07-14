@@ -9,6 +9,15 @@ func JSRegulation(abbreviation string) string {
  `
 }
 
+var JSCheckChapter = `
+	let h1s = document.getElementsByTagName("h1");
+	if (h1s.length == 0) {
+		false;
+	} else {
+		true;
+	}
+`
+
 func JSChapter(regulationID, chapterOrderNum string) string {
 	return `
 	const terms = ["X","V", "I"];
@@ -37,6 +46,15 @@ func JSChapter(regulationID, chapterOrderNum string) string {
 	`
 }
 
+var JSCheckParagraphs = `
+	let content = document.getElementsByClassName("document-page__content")[0];
+	if (content){
+		true;
+	} else {
+		false;
+	}
+`
+
 func JSParagraphs(chapterID string) string {
 	return `
 	let chapter_id = ` + chapterID + `;
@@ -50,6 +68,7 @@ func JSParagraphs(chapterID string) string {
 		paragraph.paragraph_id = 0;
 		paragraph.paragraph_order_num = i;
         paragraph.isHTML = false;
+        paragraph.isTable = false;
 		paragraph.paragraph_class = "";
 		paragraph.paragraph_text= "";
 		paragraph.chapter_id = chapter_id;
@@ -57,10 +76,10 @@ func JSParagraphs(chapterID string) string {
 		
 		// If table
 		if (el.classList && el.classList.contains("doc-table")){
-			el.getElementsByTagName("table")[0].setAttribute('style', '');
+            paragraph.isTable = true;
 			paragraph.paragraph_text = el.innerHTML;
-			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
-			paragraphs.push(paragraph);
+			paragraph.isHTML = false;
+            paragraphs.push(paragraph);
 			i++;
 			return;
 		};
@@ -189,6 +208,7 @@ func JSParagraphs(chapterID string) string {
 	});
 	chapter.paragraphs = paragraphs;
 	JSON.stringify(chapter).replace(/\\"/g, "\'");
+
 `
 
 }

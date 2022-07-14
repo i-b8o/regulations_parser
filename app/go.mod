@@ -2,7 +2,10 @@ module reg_parser
 
 go 1.18
 
-require github.com/chromedp/chromedp v0.8.2
+require (
+	github.com/chromedp/chromedp v0.8.2
+	github.com/sirupsen/logrus v1.8.1
+)
 
 require (
 	github.com/chromedp/cdproto v0.0.0-20220515234810-83d799542a04 // indirect
@@ -12,6 +15,5 @@ require (
 	github.com/gobwas/ws v1.1.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/sirupsen/logrus v1.8.1 // indirect
 	golang.org/x/sys v0.0.0-20220708085239-5a0f0661e09d // indirect
 )

@@ -111,6 +111,10 @@ func main() {
 	i := 0
 	for btnNextExists {
 		time.Sleep(3 * time.Second)
+		netError, err := netError(ctx, c)
+		if netError {
+			fmt.Scanln()
+		}
 		// Chapter
 		i++
 		iStr := strconv.FormatInt(int64(i), 10)
@@ -120,6 +124,7 @@ func main() {
 		}
 		log.Info(s)
 
+		fmt.Println(s)
 		response, err = sendPOST("http://localhost:10000/c", s, log)
 		if err != nil {
 			log.Error(err)
@@ -210,6 +215,28 @@ func getChapterInfo(ctx context.Context, regulationID, chapterOrderNum string, c
 	if err != nil {
 		return "", err
 	}
+
+	chapterExist, err := c.GetBool(ctx, script.JSCheckChapter)
+
+	if err != nil {
+		return "", err
+	}
+
+	if !chapterExist {
+		fmt.Println("Where is h1?")
+		fmt.Scanln()
+	}
+
+	paragraphExists, err := c.GetBool(ctx, script.JSCheckParagraphs)
+	if err != nil {
+		return "", err
+	}
+
+	if !paragraphExists {
+		fmt.Println("Where are paragraphs?")
+		fmt.Scanln()
+	}
+
 	return c.GetString(ctx, script.JSChapter(regulationID, chapterOrderNum))
 }
 
@@ -236,4 +263,13 @@ func btnNextClick(ctx context.Context, c *chrwr.Chrome) error {
 	}
 	// return c.GetBool(ctx, `document.querySelectorAll(".pages__right").length > 0`)
 	return c.Click(ctx, ".pages__right")
+}
+
+func netError(ctx context.Context, c *chrwr.Chrome) (netErr bool, err error) {
+
+	err = c.WaitLoaded(ctx)
+	if err != nil {
+		return true, err
+	}
+	return c.GetBool(ctx, `document.getElementsByClassName("neterror").length > 0`)
 }
