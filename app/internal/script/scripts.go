@@ -123,7 +123,7 @@ func JSParagraphs(chapterID string) string {
 				if (e.classList){
 					paragraph.paragraph_class = e.classList[0];
 				}
-				str += e.innerText;
+				str += e.innerText + " ";
 			});
 			if (str.length == 0){return;}
 			paragraph.paragraph_text = str;
