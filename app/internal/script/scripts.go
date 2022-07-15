@@ -63,22 +63,44 @@ func JSParagraphs(chapterID string) string {
 	let content = document.getElementsByClassName("document-page__content")[0];
 	let i = 0;
 	content.childNodes.forEach(function(el){
-        console.log(el);
 		let paragraph = {};
 		paragraph.paragraph_id = 0;
 		paragraph.paragraph_order_num = i;
-        paragraph.isHTML = false;
-        paragraph.isTable = false;
+        paragraph.is_html = false;
+        paragraph.is_table = false;
+        paragraph.is_nft = false;
 		paragraph.paragraph_class = "";
 		paragraph.paragraph_text= "";
 		paragraph.chapter_id = chapter_id;
-	
+
+        // If NTF
+        if (el.attributes){
+            for(let i = el.attributes.length - 1; i >= 0; i--) {
+                if(el.attributes[i].name == "data-format-type" && el.attributes[i].value == "НФТ"){
+                    paragraph.is_nft = true;
+                    paragraph.paragraph_text = el.innerHTML;
+                    paragraphs.push(paragraph);
+            		i++;
+            		return;
+                 }
+
+            }
+
+        }
+       
+        // If indent
+		if (el.classList && el.classList.length == 1 && el.classList.contains("no-indent") && el.innerText.length == 0 ){
+			paragraph.paragraph_text = "-";
+            paragraph.paragraph_class = "indent";
+            paragraphs.push(paragraph);
+			i++;
+			return;
+		};
 		
 		// If table
 		if (el.classList && el.classList.contains("doc-table")){
-            paragraph.isTable = true;
+            paragraph.is_table = true;
 			paragraph.paragraph_text = el.innerHTML;
-			paragraph.isHTML = false;
             paragraphs.push(paragraph);
 			i++;
 			return;
@@ -105,13 +127,11 @@ func JSParagraphs(chapterID string) string {
 			});
 			if (str.length == 0){return;}
 			paragraph.paragraph_text = str;
-			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
+			paragraph.is_html = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
 			return;
 		};
-		//if(el.classList && el.classList.contains("no-indent")){return};
-		//if(el.classList && el.classList.contains("document__format")){return};
 		
 		
 		// Set class name
@@ -131,7 +151,7 @@ func JSParagraphs(chapterID string) string {
 			paragraph.paragraph_class = "align_right";
             if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
-			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
+			paragraph.is_html = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
 			return;
@@ -154,7 +174,7 @@ func JSParagraphs(chapterID string) string {
 			paragraph.paragraph_class = "align_center";
             if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
-			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
+			paragraph.is_html = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
 			return;
@@ -177,7 +197,7 @@ func JSParagraphs(chapterID string) string {
 			paragraph.paragraph_class = "align_left";
             if (el.innerHTML.length == 0){return;}
 			paragraph.paragraph_text = el.innerHTML;
-			paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
+			paragraph.is_html = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 			paragraphs.push(paragraph);
 			i++;
 			return;
@@ -203,12 +223,11 @@ func JSParagraphs(chapterID string) string {
         if (el.innerHTML.length == 0){return;}
 		paragraph.paragraph_text = el.innerHTML;
 		i++;
-		paragraph.isHTML = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
+		paragraph.is_html = /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(paragraph.paragraph_text); 
 		paragraphs.push(paragraph);
 	});
 	chapter.paragraphs = paragraphs;
 	JSON.stringify(chapter).replace(/\\"/g, "\'");
-
 `
 
 }
