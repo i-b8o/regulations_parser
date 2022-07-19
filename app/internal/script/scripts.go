@@ -28,7 +28,18 @@ func JSChapter(regulationID, chapterOrderNum string) string {
 	chapter.chapter_num = "";
 	// Chapter name
 	let h1s = document.getElementsByTagName("h1");
-	let h1 = h1s.length > 0 ? h1s[0].innerText : "";
+    
+	let h1 = "";
+    
+    if (h1s.length > 0){
+        h1 = h1s[0].innerText;
+        let aIdTags = h1s[0].getElementsByTagName("a");
+        if (aIdTags && (aIdTags.length > 0)){
+            let pId = aIdTags[0].id.split("dst")[1];
+            chapter.chapter_id = parseInt(pId);
+        }
+    } 
+    
 	
 	// Chapter num
 	if (terms.some(term => h1.includes(term))){
@@ -42,7 +53,6 @@ func JSChapter(regulationID, chapterOrderNum string) string {
 	chapter.chapter_name = chapter.chapter_name.trim().replace((/  |\r\n|\n|\r/gm)," ").replace(/  +/g, ' ');
 	h1s[0].remove();
 	JSON.stringify(chapter);
-
 	`
 }
 
@@ -61,10 +71,9 @@ func JSParagraphs(chapterID string) string {
 	let chapter = {};
 	let paragraphs = [];
 	let content = document.getElementsByClassName("document-page__content")[0];
-	let i = 0;
+	let i = 1;
 	content.childNodes.forEach(function(el){
 		let paragraph = {};
-		paragraph.paragraph_id = 0;
 		paragraph.paragraph_order_num = i;
         paragraph.is_html = false;
         paragraph.is_table = false;
