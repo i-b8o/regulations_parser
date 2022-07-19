@@ -123,8 +123,9 @@ func main() {
 			log.Error(err)
 		}
 		log.Info(s)
-
+		url, _ := c.GetString(ctx, script.JSCurrentURL)
 		fmt.Println(s)
+		fmt.Println(url)
 		response, err = sendPOST("http://localhost:10000/c", s, log)
 		if err != nil {
 			log.Error(err)
@@ -223,8 +224,6 @@ func getChapterInfo(ctx context.Context, regulationID, chapterOrderNum string, c
 	}
 
 	if !chapterExist {
-		s, _ := c.GetString(ctx, script.JSCurrentURL)
-		fmt.Println(s)
 		fmt.Println("Where is h1?")
 		fmt.Scanln()
 	}
@@ -235,8 +234,6 @@ func getChapterInfo(ctx context.Context, regulationID, chapterOrderNum string, c
 	}
 
 	if !paragraphExists {
-		s, _ := c.GetString(ctx, script.JSCurrentURL)
-		fmt.Println(s)
 		fmt.Println("Where are paragraphs?")
 		fmt.Scanln()
 	}
