@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 18 21:55:30 2022
+# Make data base, printed on Tue Jul 19 15:23:39 2022
 
 # Variables
 
@@ -47,7 +45,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:44646
+JOURNAL_STREAM = 8:45850
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -69,7 +67,7 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-MANAGERPID = 1470
+MANAGERPID = 1472
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -89,7 +87,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-SESSION_MANAGER = local/ib8o-System-Product-Name:@/tmp/.ICE-unix/1680,unix/ib8o-System-Product-Name:/tmp/.ICE-unix/1680
+SESSION_MANAGER = local/ib8o-System-Product-Name:@/tmp/.ICE-unix/1689,unix/ib8o-System-Product-Name:/tmp/.ICE-unix/1689
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -99,7 +97,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 34d24b5cc0394ae6b6669907be6cd8d9
+INVOCATION_ID = 2d271774881d49d4afa4ce8e2f8ca193
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -109,7 +107,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 45381
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2399
 # automatic
 %F = $(notdir $%)
 # environment
@@ -119,7 +117,7 @@ PWD = /home/i-b8o/go/src/github.com/i-b8o/regulations_parser
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1643
+SSH_AGENT_PID = 1652
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -231,7 +229,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 45381
+VSCODE_PID = 2399
 # variable set hash-table stats:
 # Load=110/1024=11%, Rehash=0, Collisions=19/135=14%
 
@@ -284,6 +282,8 @@ Makefile:
 # Load=5/1024=0%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
  
+make: *** No rule to make target 'all'.  Stop.
+
 
 # No 'vpath' search paths.
 
@@ -295,6 +295,6 @@ Makefile:
 # strcache performance: lookups = 17 / hit rate = 29%
 # hash-table stats:
 # Load=12/8192=0%, Rehash=0, Collisions=1/17=6%
-# Finished Make data base on Mon Jul 18 21:55:30 2022
+# Finished Make data base on Tue Jul 19 15:23:39 2022
 
  

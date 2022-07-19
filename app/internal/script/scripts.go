@@ -81,20 +81,24 @@ func JSParagraphs(chapterID string) string {
 		paragraph.paragraph_class = "";
 		paragraph.paragraph_text= "";
 		paragraph.chapter_id = chapter_id;
-
         // If NTF
         if (el.attributes){
             for(let i = el.attributes.length - 1; i >= 0; i--) {
                 if(el.attributes[i].name == "data-format-type" && el.attributes[i].value == "НФТ"){
+                    // ID
+                    let pIdTags = el.getElementsByTagName("a");
+    				if (pIdTags && (pIdTags.length > 0)){
+    					let pId = pIdTags[0].id.split("dst")[1];
+    					paragraph.paragraph_id = parseInt(pId);
+    					pIdTags[0].remove();
+    				}
                     paragraph.is_nft = true;
                     paragraph.paragraph_text = el.innerHTML;
                     paragraphs.push(paragraph);
             		i++;
             		return;
                  }
-
             }
-
         }
        
         // If indent
