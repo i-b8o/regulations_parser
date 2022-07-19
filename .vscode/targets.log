@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul 19 15:23:39 2022
+# Make data base, printed on Tue Jul 19 21:18:30 2022
 
 # Variables
 
@@ -45,7 +47,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:45850
+JOURNAL_STREAM = 8:43903
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -87,7 +89,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-SESSION_MANAGER = local/ib8o-System-Product-Name:@/tmp/.ICE-unix/1689,unix/ib8o-System-Product-Name:/tmp/.ICE-unix/1689
+SESSION_MANAGER = local/ib8o-System-Product-Name:@/tmp/.ICE-unix/1685,unix/ib8o-System-Product-Name:/tmp/.ICE-unix/1685
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -97,7 +99,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 2d271774881d49d4afa4ce8e2f8ca193
+INVOCATION_ID = 2429d37beba44a18948b803966fcffdb
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -107,7 +109,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2399
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3528
 # automatic
 %F = $(notdir $%)
 # environment
@@ -117,7 +119,7 @@ PWD = /home/i-b8o/go/src/github.com/i-b8o/regulations_parser
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1652
+SSH_AGENT_PID = 1648
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -193,6 +195,8 @@ GDK_BACKEND = x11
 # environment
 LC_PAPER = ru_RU.UTF-8
 # environment
+NO_AT_BRIDGE = 1
+# environment
 QT_ACCESSIBILITY = 1
 # default
 MAKEFILES := 
@@ -229,9 +233,9 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2399
+VSCODE_PID = 3528
 # variable set hash-table stats:
-# Load=110/1024=11%, Rehash=0, Collisions=19/135=14%
+# Load=111/1024=11%, Rehash=0, Collisions=19/136=14%
 
 # Pattern-specific Variable Values
 
@@ -281,9 +285,6 @@ Makefile:
 # files hash-table stats:
 # Load=5/1024=0%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
- 
-make: *** No rule to make target 'all'.  Stop.
-
 
 # No 'vpath' search paths.
 
@@ -291,10 +292,11 @@ make: *** No rule to make target 'all'.  Stop.
 
 # strcache buffers: 1 (0) / strings = 12 / storage = 90 B / avg = 7 B
 # current buf: size = 8162 B / used = 90 B / count = 12 / avg = 7 B
+ 
 
 # strcache performance: lookups = 17 / hit rate = 29%
 # hash-table stats:
 # Load=12/8192=0%, Rehash=0, Collisions=1/17=6%
-# Finished Make data base on Tue Jul 19 15:23:39 2022
+# Finished Make data base on Tue Jul 19 21:18:30 2022
 
  

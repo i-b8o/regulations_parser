@@ -56,6 +56,10 @@ func JSChapter(regulationID, chapterOrderNum string) string {
 	`
 }
 
+var JSCurrentURL = `
+	window.location.href;
+`
+
 var JSCheckParagraphs = `
 	let content = document.getElementsByClassName("document-page__content")[0];
 	if (content){

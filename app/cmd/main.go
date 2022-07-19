@@ -223,6 +223,8 @@ func getChapterInfo(ctx context.Context, regulationID, chapterOrderNum string, c
 	}
 
 	if !chapterExist {
+		s, _ := c.GetString(ctx, script.JSCurrentURL)
+		fmt.Println(s)
 		fmt.Println("Where is h1?")
 		fmt.Scanln()
 	}
@@ -233,6 +235,8 @@ func getChapterInfo(ctx context.Context, regulationID, chapterOrderNum string, c
 	}
 
 	if !paragraphExists {
+		s, _ := c.GetString(ctx, script.JSCurrentURL)
+		fmt.Println(s)
 		fmt.Println("Where are paragraphs?")
 		fmt.Scanln()
 	}

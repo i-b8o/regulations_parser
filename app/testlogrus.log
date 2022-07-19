@@ -1,1 +1,2 @@
-{"file":"main.main()","func":"main.go:133","level":"error","msg":"[ERROR: duplicate key value violates unique constraint \"links_id_key\" (SQLSTATE 23505)]","time":"2022-07-19T15:38:34+03:00"}
+{"file":"main.main()","func":"main.go:133","level":"error","msg":"[ERROR: duplicate key value violates unique constraint \"links_id_key\" (SQLSTATE 23505)]","time":"2022-07-19T21:27:38+03:00"}
+{"file":"main.main()","func":"main.go:133","level":"error","msg":"[ERROR: duplicate key value violates unique constraint \"links_id_key\" (SQLSTATE 23505)]","time":"2022-07-19T21:28:18+03:00"}
