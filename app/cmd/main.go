@@ -27,6 +27,7 @@ type Response struct {
 	Message  string   `json:"message,omitempty"`
 }
 
+// TODO rename all classes and ids
 func main() {
 	log := logrus.New()
 	f, err := os.OpenFile("testlogrus.log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
